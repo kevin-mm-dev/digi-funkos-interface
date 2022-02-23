@@ -8,13 +8,13 @@ import {Grid } from '@chakra-ui/react';
 
 const Funkos=() => {
     const {active }= useWeb3React();
-    const {funkos,loading,update}=useDigiFunkosData();
+    const {funkos,isLoading,update}=useDigiFunkosData();
     if (!active) return <RequestAccess/>;
 
     return(
         <>
         {
-            loading?
+            isLoading?
             <Loading/>:
             <Grid templateColumns="repeat(auto-fill,minmax(250px,1fr))" gap={6}>
                 {funkos.map(({ name,image,tokenId},index)=>(

@@ -74,7 +74,7 @@ const getFunkoData = async ({ digiFunkos, tokenId }) => {
 //Plural
 const useDigiFunkosData=()=>{
     const [funkos,setFunkos]= useState([]);
-    const [loading,setLoading]= useState(true);
+    const [isLoading,setLoading]= useState(true);
     const digiFunkos = useDigiFunkos();
 
     const update = useCallback(async () => {
@@ -96,7 +96,7 @@ const useDigiFunkosData=()=>{
     },[update]);
     
     return {
-        loading,
+        isLoading,
         funkos,
         update
     }
@@ -106,7 +106,7 @@ const useDigiFunkosData=()=>{
 // Singular
 const useDigiFunkoData = (tokenId = null) => {
     const [funko, setFunko] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const digiFunkos = useDigiFunkos();
   
     const update = useCallback(async () => {
@@ -117,7 +117,7 @@ const useDigiFunkoData = (tokenId = null) => {
         setFunko(toSet);
   
         setLoading(false);
-      }
+      } 
     }, [digiFunkos, tokenId]);
   
     useEffect(() => {
@@ -125,7 +125,7 @@ const useDigiFunkoData = (tokenId = null) => {
     }, [update]);
   
     return {
-      loading,
+        isLoading,
       funko,
       update,
     };

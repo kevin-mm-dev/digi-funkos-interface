@@ -10,22 +10,66 @@ import {
     Tbody,
     Button,
     Tag,
+    useToast
   } from "@chakra-ui/react";
   import { useWeb3React } from "@web3-react/core";
   import RequestAccess from "../../components/request-access";
   import FunkoCard from "../../components/funko-card";
   import { useDigiFunkoData } from "../../hooks/useDigiFunkosData";
   import { useParams } from "react-router-dom";
+  import {useState }from 'react';
   import Loading from "../../components/loading";
+  import useDigiFunkos  from "../../hooks/useDigiFunkos";
   
   const Funko = () => {
-    const { active, account } = useWeb3React();
+    const { active, account,library } = useWeb3React();
     const { tokenId } = useParams();
-    const { loading, funko } = useDigiFunkoData(tokenId);
+    const { isLoading, funko,update } = useDigiFunkoData(tokenId);
+    const toast = useToast();
+    const digiFunkos = useDigiFunkos();
+    const [isTransfering,setTransfering]=useState(false);
+
+    const transfer=()=>{
+        setTransfering(true);
+        const address=prompt("Ingresa la direccion");
+        const isAddress=library.utils.isAddress(address);
+
+
+        if (isAddress) {
+            digiFunkos.methods.safeTransferFrom(funko.owner,address,funko.tokenId).send({
+                from: account,
+            }).on('error',()=>{
+
+            }).on('transactionHash',(txHash)=>{
+                toast({
+                    title: 'Transacción enviada.',
+                    description: txHash,
+                    status: 'info',
+                  });
+            }).on('receipt',()=>{
+                setTransfering(false);
+                toast({
+                    title: 'Transacción confirmada.',
+                    description: `El funko ahora pertenece a ${address}`,
+                    status: 'success',
+                  });
+                  update();
+            });
+        }else{
+            toast({
+                title:'Direccion Invalida',
+                description:'La direccion no es valia en la red de Ethereum',
+                status:"error",
+
+            });
+          setTransfering(false);
+
+        }
+    }
   
     if (!active) return <RequestAccess />;
   
-    if (loading) return <Loading />;
+    if (isLoading) return <Loading />;
   
     return (
       <Stack
@@ -42,8 +86,13 @@ import {
             name={funko.name}
             image={funko.image}
           />
-          <Button disabled={account !== funko.owner} colorScheme="green">
+          <Button
+            onClick={transfer}
+            disabled={account !== funko.owner} colorScheme="green"
+            isLoading={isTransfering}
+           >
             {account !== funko.owner ? "No eres el dueño" : "Transferir"}
+
           </Button>
         </Stack>
         <Stack width="100%" spacing={5}>
