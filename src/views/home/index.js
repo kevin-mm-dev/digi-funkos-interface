@@ -161,9 +161,9 @@ import {
               onClick={mint}
               isLoading={isMinting}
             >
-              Obtén tu punk
+              Obtén tu Funko
             </Button>
-            <Link to="/punks">
+            <Link to="/funkos">
               <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
                 Galería
               </Button>
