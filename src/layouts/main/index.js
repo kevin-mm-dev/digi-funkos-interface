@@ -13,19 +13,27 @@ import {
   import NavLink from "./nav-link";
   import Footer from "./footer";
   import WalletData from "./wallet-data";
+  import { useWeb3React } from "@web3-react/core";
+
   
-  const Links = [
-    {
-      name: "Home",
-      to: "/",
-    },
-    {
-      name: "funkos",
-      to: "/funkos",
-    },
-  ];
   
   const MainLayout = ({ children }) => {
+    const {  account } = useWeb3React();
+  
+    const Links = [
+      {
+        name: "Inicio",
+        to: "/",
+      },
+      {
+        name: "Colección completa",
+        to: "/funkos",
+      },
+      {
+        name: "Mi colección",
+        to: `/funkos?address=${account}`,
+      },
+    ];
     const { isOpen, onOpen, onClose } = useDisclosure();
   
     return (
@@ -58,10 +66,10 @@ import {
             />
             <HStack spacing={8} alignItems={"center"}>
               <Flex alignItems="center">
-                <Image src="./images/logo.jpg" width="80px" />
-                <Heading size="md" color="purple" mt={0.2} ml={1}>
+                <Image src="./images/logo.png" width="185px" />
+                {/* <Heading size="md" color="purple" mt={0.2} ml={1}>
                   DigiFunkos
-                </Heading>
+                </Heading> */}
               </Flex>
               <HStack
                 as={"nav"}

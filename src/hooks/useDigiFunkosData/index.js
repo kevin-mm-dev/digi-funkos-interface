@@ -1,6 +1,6 @@
 import {useState,useEffect,useCallback} from 'react';
 import useDigiFunkos from '../useDigiFunkos'
-
+import {useWeb3React} from '@web3-react/core';
 
 const getFunkoData = async ({ digiFunkos, tokenId }) => {
     const [
@@ -71,64 +71,83 @@ const getFunkoData = async ({ digiFunkos, tokenId }) => {
   };
 
 
-//Plural
-const useDigiFunkosData=()=>{
-    const [funkos,setFunkos]= useState([]);
-    const [isLoading,setLoading]= useState(true);
-    const digiFunkos = useDigiFunkos();
+// Plural
+const useDigiFunkosData = ({ owner = null } = {}) => {
+  const [funkos, setFunkos] = useState([]);
+  const { library } = useWeb3React();
+  const [isLoading, setLoading] = useState(true);
+  const digiFunkos = useDigiFunkos();
 
-    const update = useCallback(async () => {
-        if(digiFunkos){
-            setLoading(true);
-            let tokenIds;
-            const totalSupply=await digiFunkos.methods.totalSupply().call();
-            tokenIds = new Array(Number(totalSupply)).fill().map((_,index)=>index);
+  const update = useCallback(async () => {
+    if (digiFunkos) {
+      setLoading(true);
 
-            const funkosPromise =tokenIds.map((tokenId)=>getFunkoData({tokenId,digiFunkos}));
-            const funkos=await Promise.all(funkosPromise);
-            setFunkos(funkos);
-            setLoading(false);
-        }
-    },[digiFunkos]);
+      let tokenIds;
 
-    useEffect(() => {
-        update();
-    },[update]);
-    
-    return {
-        isLoading,
-        funkos,
-        update
+      if (!library.utils.isAddress(owner)) {
+        const totalSupply = await digiFunkos.methods.totalSupply().call();
+        tokenIds = new Array(Number(totalSupply))
+          .fill()
+          .map((_, index) => index);
+      } else {
+        const balanceOf = await digiFunkos.methods.balanceOf(owner).call();
+
+        const tokenIdsOfOwner = new Array(Number(balanceOf))
+          .fill()
+          .map((_, index) =>
+            digiFunkos.methods.tokenOfOwnerByIndex(owner, index).call()
+          );
+
+        tokenIds = await Promise.all(tokenIdsOfOwner);
+      }
+
+      const FunkosPromise = tokenIds.map((tokenId) =>
+        getFunkoData({ tokenId, digiFunkos })
+      );
+
+      const funkos = await Promise.all(FunkosPromise);
+
+      setFunkos(funkos);
+      setLoading(false);
     }
-}
+  }, [digiFunkos, owner, library?.utils]);
 
-//Singular
+  useEffect(() => {
+    update();
+  }, [update]);
+
+  return {
+    isLoading,
+    funkos,
+    update,
+  };
+};
+
 // Singular
 const useDigiFunkoData = (tokenId = null) => {
-    const [funko, setFunko] = useState({});
-    const [isLoading, setLoading] = useState(true);
-    const digiFunkos = useDigiFunkos();
-  
-    const update = useCallback(async () => {
-      if (digiFunkos && tokenId != null) {
-        setLoading(true);
-  
-        const toSet = await getFunkoData({ tokenId, digiFunkos });
-        setFunko(toSet);
-  
-        setLoading(false);
-      } 
-    }, [digiFunkos, tokenId]);
-  
-    useEffect(() => {
-      update();
-    }, [update]);
-  
-    return {
-        isLoading,
-      funko,
-      update,
-    };
-  };
+  const [funko, setFunko] = useState({});
+  const [isLoading, setLoading] = useState(true);
+  const digiFunkos = useDigiFunkos();
 
+  const update = useCallback(async () => {
+    if (digiFunkos && tokenId != null) {
+      setLoading(true);
+
+      const toSet = await getFunkoData({ tokenId, digiFunkos });
+      setFunko(toSet);
+
+      setLoading(false);
+    }
+  }, [digiFunkos, tokenId]);
+
+  useEffect(() => {
+    update();
+  }, [update]);
+
+  return {
+    isLoading,
+    funko,
+    update,
+  };
+};
 export {useDigiFunkosData,useDigiFunkoData};

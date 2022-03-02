@@ -24,9 +24,8 @@ import {
     const [maxSupply, setMaxSupply]=useState();
     const toast = useToast(); 
     const truncatedAddress= useTruncatedAddress(account);
-    const my_val=Web3.utils.toBN("50000000000000000");
-    //     console.log('account ', my_val);
-        console.log('Web3.utils.toBN ', my_val);
+    // const my_val=Web3.utils.toBN("50000000000000000");
+    const my_val=Web3.utils.toBN("500000000000000");
 
     const getMaxSupply = useCallback(async () => {
         if (digiFunkos) {
@@ -46,8 +45,6 @@ import {
           .deterministicPseudoRandomDNA(totalSupply+1, account)
           .call();
         const image = await digiFunkos.methods.imageByDNA(dnaPreview).call();
-
-        console.log('next totalSupply ',totalSupply);
         console.log('next image ',image);
         setImageSrc(image);
       }
@@ -107,7 +104,7 @@ import {
         direction={{ base: "column-reverse", md: "row" }}
       >
         <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-          <p>Max Supply: {totalSupply} / {maxSupply} </p>
+          
           
           <Heading
             lineHeight={1.1}
@@ -134,6 +131,10 @@ import {
             <Text as={"span"} color={"green.400"}>
               unico y detergente
             </Text>
+            <br />
+            <Text as={"span"} color={"gray.800"} fontSize='2xl'>
+            NFT's generados: {totalSupply} / {maxSupply}
+          </Text>
           </Heading>
           <Text color={"gray.500"}>
             DigiFunkos es una colección de Avatares randomizados cuya metadata

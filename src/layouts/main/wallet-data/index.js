@@ -49,7 +49,7 @@ const WalletData = () => {
       {active ? (
         <Tag colorScheme="green" borderRadius="full">
           <TagLabel>
-            <Link to="/funkos">{truncatedAddress}</Link>
+            <Link to={`/funkos?address=${account}`}>{truncatedAddress}</Link>
           </TagLabel>
           <Badge
             d={{

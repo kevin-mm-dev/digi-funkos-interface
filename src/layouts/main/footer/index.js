@@ -4,6 +4,7 @@ import {
     Stack,
     Text,
     Link,
+    Image,
     useColorModeValue,
   } from "@chakra-ui/react";
   
@@ -24,15 +25,16 @@ import {
             py={4}
             direction={{ base: "column", md: "row" }}
             spacing={4}
-            justify={{ base: "center", md: "space-between" }}
+            justify={{ base: "center"}}
             align={{ base: "center", md: "center" }}
           >
             <Text>
-              © {new Date().getFullYear()} Original designs by
-              <Link ml={1} href="https://twitter.com/pablostanley">
-                Pablo Stanley 🎨
-              </Link>
+              © {new Date().getFullYear()} 
             </Text>
+            <Image src="./images/linkedin.png" width="25px" />
+            <Link ml={1} href="https://www.linkedin.com/in/kevin-m-m-dev/">
+                Kevin Martinez Meraz 
+            </Link>
           </Container>
         </Box>
       </Box>

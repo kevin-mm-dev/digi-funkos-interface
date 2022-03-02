@@ -17,7 +17,7 @@ const DigiFunkosArtifact={
           "type": "constructor"
         },
         {
-          "anonymous": false,
+          "anonymous" : false,
           "inputs": [
             {
               "indexed": true,
