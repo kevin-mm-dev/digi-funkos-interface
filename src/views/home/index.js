@@ -42,7 +42,7 @@ import {
         const totalSupply=await digiFunkos.methods.totalSupply().call()
         setTotalSupply(totalSupply);
         const dnaPreview = await digiFunkos.methods
-          .deterministicPseudoRandomDNA(totalSupply+1, account)
+          .deterministicPseudoRandomDNA(totalSupply, account)
           .call();
         const image = await digiFunkos.methods.imageByDNA(dnaPreview).call();
         console.log('next image ',image);
@@ -203,7 +203,7 @@ import {
                 size="xs"
                 colorScheme="green"
               >
-                Actualizar
+                Refrescar
               </Button>
             </>
           ) : (
