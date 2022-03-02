@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './views/home';
 import Funkos from './views/funkos';
 import Funko from './views/funko';
-// import Web3 from 'web3';
 // import Web3 from "web3/dist/web3.min";
 import MainLayout from "./layouts/main";
 

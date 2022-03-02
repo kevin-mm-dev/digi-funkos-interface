@@ -29,9 +29,6 @@ const Funkos = () => {
   const { funkos, isLoading } = useDigiFunkosData({
     owner: submitted && validAddress ? address : null,
   });
-  // console.log('hola addressSETADIA ', address);
-  // console.log('hola address ', new URLSearchParams(search).get("address"));
-  // setAddress(new URLSearchParams(search).get("address"));
 
   const handleAddressChange = ({ target: { value } }) => {
     setAddress(value);

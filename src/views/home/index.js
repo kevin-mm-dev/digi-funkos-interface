@@ -45,7 +45,6 @@ import {
           .deterministicPseudoRandomDNA(totalSupply, account)
           .call();
         const image = await digiFunkos.methods.imageByDNA(dnaPreview).call();
-        console.log('next image ',image);
         setImageSrc(image);
       }
     }, [digiFunkos, account]);
@@ -97,6 +96,7 @@ import {
     };
 
     return (
+
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}
@@ -121,14 +121,14 @@ import {
                 position: "absolute",
                 bottom: 1,
                 left: 0,
-                bg: "green.400",
+                bg: "blue.400",
                 zIndex: -1,
               }}
             >
               Un DigiFunko
             </Text>
             <br />
-            <Text as={"span"} color={"green.400"}>
+            <Text as={"span"} color={"blue.400"}>
               unico y detergente
             </Text>
             <br />
@@ -141,10 +141,10 @@ import {
             es almacenada on-chain. Poseen características únicas y sólo hay 10000
             en existencia.
           </Text>
-          <Text color={"green.500"}>
-            Cada DigiFunko se genera de forma secuencial basado en tu address,
-            usa el previsualizador para averiguar cuál sería tu DigiFunko si
-            minteas en este momento
+          <Text color={"blue.500"}>
+            Cada DigiFunko se genera de acuerdo a que tantos ya se hayan generado y basado en tu address, es por eso que solo se ven 1 vez en la vida!
+            Usa el previsualizador para averiguar cuál sería tu DigiFunko si
+            minteas en este momento.
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
@@ -155,9 +155,9 @@ import {
               size={"lg"}
               fontWeight={"normal"}
               px={6}
-              colorScheme={"green"}
-              bg={"green.400"}
-              _hover={{ bg: "green.500" }}
+              colorScheme={"blue"}
+              bg={"blue.400"}
+              _hover={{ bg: "blue.500" }}
               disabled={!digiFunkos}
               onClick={mint}
               isLoading={isMinting}
@@ -185,13 +185,13 @@ import {
               <Flex mt={2}>
                 <Badge>
                   Next ID:
-                  <Badge ml={1} colorScheme="green">
+                  <Badge ml={1} colorScheme="blue">
                     {totalSupply}
                   </Badge>
                 </Badge>
                 <Badge ml={2}>
                   Address:
-                  <Badge ml={1} colorScheme="green">
+                  <Badge ml={1} colorScheme="blue">
                     {/* 0x0000...0000 */}
                     {truncatedAddress}
                   </Badge>
@@ -201,7 +201,7 @@ import {
                 onClick={getDigiFunkosData}
                 mt={4}
                 size="xs"
-                colorScheme="green"
+                colorScheme="blue"
               >
                 Refrescar
               </Button>

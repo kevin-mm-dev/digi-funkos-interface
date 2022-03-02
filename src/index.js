@@ -11,7 +11,7 @@ ReactDOM.render(
     <HashRouter>
     <ChakraProvider>
       <Web3ReactProvider getLibrary={getLibrary}>
-        <App/>
+          <App/>
       </Web3ReactProvider>
     </ChakraProvider>
     </HashRouter>

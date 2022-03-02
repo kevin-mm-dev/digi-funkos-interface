@@ -88,7 +88,7 @@ import {
           />
           <Button
             onClick={transfer}
-            disabled={account !== funko.owner} colorScheme="green"
+            disabled={account !== funko.owner} colorScheme="blue"
             isLoading={isTransfering}
            >
             {account !== funko.owner ? "No eres el dueño" : "Transferir"}
@@ -100,13 +100,13 @@ import {
           <Text fontSize="xl">{funko.description}</Text>
           <Text fontWeight={600}>
             DNA:
-            <Tag ml={2} colorScheme="green">
+            <Tag ml={2} colorScheme="blue">
               {funko.dna}
             </Tag>
           </Text>
           <Text fontWeight={600}>
             Owner:
-            <Tag ml={2} colorScheme="green">
+            <Tag ml={2} colorScheme="blue">
               {funko.owner}
             </Tag>
           </Text>
