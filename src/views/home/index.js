@@ -129,7 +129,7 @@ import {
             </Text>
             <br />
             <Text as={"span"} color={"blue.400"}>
-              unico y detergente
+              único y detergente
             </Text>
             <br />
             <Text as={"span"} color={"gray.800"} fontSize='2xl'>
