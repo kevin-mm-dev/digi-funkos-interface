@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/digi-funkos-interface/static/js/main.5ed24fad.js",
+    "index.html": "/digi-funkos-interface/index.html",
+    "main.5ed24fad.js.map": "/digi-funkos-interface/static/js/main.5ed24fad.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.5ed24fad.js"
+  ]
+}
